@@ -13,9 +13,19 @@ class Expense extends Model
         'title',
         'amount',
         'payer_id',
+        'category_id',
         'colocation_id',
-        'categorie_id'
+        'is_paid'
+        
+        
     ];
+
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'expenses_users')
+                ->withPivot('amount_due', 'is_paid')
+                ->withTimestamps();
+}
 
     public function colocation()
     {
@@ -29,7 +39,7 @@ class Expense extends Model
 
     public function category()
     {
-        return $this->belongsTo(Categorie::class, 'categorie_id');
+        return $this->belongsTo(Categorie::class, 'category_id');
     }
 
     public function shares()

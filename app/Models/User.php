@@ -50,11 +50,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function colocation(){
-        return $this->belongsToMany(Colocation::class)
-        ->withPivot('Colocation_User');
+    public function colocations(){
+         return $this->belongsToMany(Colocation::class, 'colocation_users')
+                ->withPivot('role', 'status', 'left_at')
+                ->withTimestamps();
     }
    
+    public function expenses()
+{
+    return $this->belongsToMany(Expense::class, 'expenses_users')
+                ->withPivot('amount_due', 'is_paid')
+                ->withTimestamps();
+}
     
     // lmsrof li khales l user
     public function paidExpenses()

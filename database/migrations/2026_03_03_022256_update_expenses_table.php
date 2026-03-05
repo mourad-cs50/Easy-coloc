@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colocations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->enum('status' ,['active' , 'cancelled'])->default('active');
-            $table->string('token')->nullable();
-            $table->timestamps();
+        Schema::table('expenses', function (Blueprint $table) {
+             $table->decimal('amount', 10, 2)->nullable()->change(); 
+             $table->string('status')->default('not_paid'); 
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colocations');
+        
     }
 };

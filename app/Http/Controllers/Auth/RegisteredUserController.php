@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $isAdmin = User::count() === 0 ? 1 : 0;
+        $isAdmin = User::count() === 0 ? 1 : 0; 
 
         $user = User::create([
             'name' => $request->name,
@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard'));
     }
 }

@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Colocation extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'name',
+        'user_id',
         'status',
-        'token'
+        'token',
     ];
 
     public function users()
     {
-        return $this->belongsToMany(User::class)
-                    ->withPivot('role', 'status', 'left_at')
-                    ->withTimestamps();
+        return $this->belongsToMany(User::class, 'colocation_users')
+            ->withPivot('role', 'status', 'left_at', 'sold')
+            ->withTimestamps();
     }
 
     public function expenses()
